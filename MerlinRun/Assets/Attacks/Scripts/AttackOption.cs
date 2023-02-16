@@ -6,6 +6,7 @@ public class AttackOption : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] AttackType Option;
+    GameObject[] Enemies;
     void Start()
     {
         
@@ -21,9 +22,16 @@ public class AttackOption : MonoBehaviour
     {
         
     
-        if (other.gameObject.name == "PlayerShell")
+        if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<PlayerAttack>().SetAttack(Option);
         }
+        Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in Enemies)
+        {
+            enemy.GetComponent<Enemy>().CheckAttack();
+        }
+        
+
     }
 }

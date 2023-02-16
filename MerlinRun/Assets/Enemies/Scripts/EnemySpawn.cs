@@ -27,6 +27,7 @@ public class EnemySpawn : MonoBehaviour
         Enemy.transform.position = gameObject.transform.GetChild(Random.Range(0,2)).transform.position;
         Enemy.transform.position = new Vector3(Enemy.transform.position.x, Enemy.transform.position.y + 0.5f, Enemy.transform.position.z);
 
-        Enemy.gameObject.GetComponent<Enemy>().weakness = (AttackType)Random.Range(1,3);
+        Enemy.gameObject.GetComponent<Enemy>().weakness = (AttackType)Random.Range(1,4);
+        Debug.Log(Enemy.gameObject.GetComponent<Enemy>().weakness);
     }
 }

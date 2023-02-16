@@ -16,10 +16,21 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerAttack = GameObject.Find("PlayerShell").GetComponent<PlayerAttack>().GetAttack();
+        
+        /*else
+        {
+            Time.timeScale = 0f;
+        }*/
+    }
+
+
+    public void CheckAttack()
+    {
+        playerAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().GetAttack();
         if (playerAttack == weakness)
         {
-            gameObject.SetActive(false);
+            Debug.Log("Enemy Hit!");
+            Destroy(gameObject);
         }
     }
 }

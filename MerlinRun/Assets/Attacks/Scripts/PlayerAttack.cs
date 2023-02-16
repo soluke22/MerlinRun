@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public AttackType GetAttack()
     {
+        
         return AttackChoice;
     }
     public void SetAttack(AttackType attack)
