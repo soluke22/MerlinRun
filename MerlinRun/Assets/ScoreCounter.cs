@@ -5,18 +5,32 @@ using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour
 {
+    float counter;
     public TMP_Text numericalScore;
-    public float score;
+    public int score;
     // Start is called before the first frame update
     void Start()
     {
-        score = 0f;
+        score = 0;
+        numericalScore.text = "Score : " + score;
     }
 
     // Update is called once per frame
     void Update()
     {
-        score = score + .00005f % 100;
+        counter += Time.deltaTime;
+
+    if (counter >= 5)
+    {
+        increaseScore();
+        counter = 0;
+    }
+   
+    }
+
+    void increaseScore()
+    {
+        score = score + 1;
         numericalScore.text = "Score : " + score;
     }
 }
