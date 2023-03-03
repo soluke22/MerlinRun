@@ -20,7 +20,7 @@ public class Generator : MonoBehaviour
     {
         if (player.transform.position.z > platformStartPoint.z + 10)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 20);
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 40);
             platformStartPoint = transform.position;
             GameObject oldPlatform = platformShape;
             GameObject newPlatform = Instantiate(platformShape, transform.position, transform.rotation);
