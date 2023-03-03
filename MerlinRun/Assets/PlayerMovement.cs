@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float horizontal = Input.GetAxis("Horizontal");
-
 	    Vector3 right = transform.right * horizontal * speed * Time.deltaTime;
         Vector3 forward = transform.forward * speed * Time.deltaTime;
 
