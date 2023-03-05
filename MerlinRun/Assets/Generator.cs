@@ -18,7 +18,7 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.transform.position.z > platformStartPoint.z + 10)
+        if (player.transform.position.z > platformStartPoint.z)
         {
             transform.position = new Vector3(platformShape.transform.position.x, platformShape.transform.position.y, platformShape.transform.position.z + 70);
             platformStartPoint = transform.position;
