@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Enemy Hit!");
             Destroy(gameObject);
+            GameObject.Find("AttackWallHitBox").SetActive(false);
         }
     }
 }
