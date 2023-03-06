@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public GameState state;
-
+    [SerializeField] private GameObject quitButton;
     public static event Action<GameState> OnStateChange;
 
     private void Awake()
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
             case GameState.Lost:
                 Debug.Log("You Lose");
                 Time.timeScale = 0;
+                quitButton.SetActive(true);
                 break;
             
         }
