@@ -23,6 +23,7 @@ public class EnemySpawn : MonoBehaviour
 
     void SpawnEnemy()
     {
+        Debug.Log("EnemySpawn");
         GameObject Enemy = Instantiate(Resources.Load("Enemy", typeof(GameObject))) as GameObject;
         Enemy.transform.position = gameObject.transform.GetChild(Random.Range(0,2)).transform.position;
         Enemy.transform.position = new Vector3(Enemy.transform.position.x, Enemy.transform.position.y + 0.5f, Enemy.transform.position.z);
