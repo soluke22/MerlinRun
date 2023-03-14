@@ -314,18 +314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49eafc9d5e8d0704e8969f34eaea04b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11301967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11301959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6262af3ddf3ff845bc0edfbe3ec5589, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &32355223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,6 +1014,7 @@ GameObject:
   - component: {fileID: 399357115}
   - component: {fileID: 399357114}
   - component: {fileID: 399357113}
+  - component: {fileID: 399357116}
   m_Layer: 0
   m_Name: Cliff (6)
   m_TagString: Untagged
@@ -1111,6 +1100,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399357111}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &399357116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399357111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d18336b02e3fa4ebc40a741e414839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &514989675
 GameObject:
   m_ObjectHideFlags: 0
