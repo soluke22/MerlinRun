@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
+        
 
         if(Input.touches.Length > 0) //checks if a finger has touched the screen
         {
@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else //if there's no finger, then moves based on the screen moving
         {
+        float horizontal = Input.GetAxis("Horizontal");
         Vector3 right = transform.right * horizontal * horSpeed * Time.deltaTime;
         Vector3 forward = transform.forward * forSpeed * Time.deltaTime;
 
