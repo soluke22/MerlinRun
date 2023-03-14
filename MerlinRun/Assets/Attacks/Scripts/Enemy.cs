@@ -7,10 +7,11 @@ public class Enemy : MonoBehaviour
 
     public AttackType weakness;
     AttackType playerAttack;
+    public AudioSource enemySound;
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemySound= transform.GetChild(1).GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,6 +33,10 @@ public class Enemy : MonoBehaviour
             Debug.Log("Enemy Hit!");
             Destroy(gameObject);
             GameObject.Find("AttackWallHitBox").SetActive(false);
+        }
+        else
+        {
+            enemySound.Play();
         }
     }
 }
