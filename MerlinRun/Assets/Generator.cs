@@ -7,14 +7,16 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     public List<GameObject> Plane;
+    public List<GameObject> Spawner;
     public GameObject platformShape;
     public GameObject enemySpawn;
     public GameObject player; 
     private Vector3 platformStartPoint;
     private Vector3 enemySpawnPoint;
     private Queue<GameObject> platform;
+    private Queue<GameObject> enemies;
     private int newPlatformSpace = 230;
-    private int newEnemySpace = 20;
+    private int newEnemySpace = 230;
     private int platformSpace = 270;
     private int enemySpace = 60;
     
@@ -26,6 +28,11 @@ public class Generator : MonoBehaviour
         platform.Enqueue(Plane[2]);
         platform.Enqueue(Plane[3]);
         platform.Enqueue(Plane[4]);
+        enemies.Enqueue(Spawner[0]);
+        enemies.Enqueue(Spawner[1]);
+        enemies.Enqueue(Spawner[2]);
+        enemies.Enqueue(Spawner[3]);
+        enemies.Enqueue(Spawner[4]);
         platformStartPoint = platformShape.transform.position;
         enemySpawnPoint = enemySpawn.transform.position;
 
@@ -49,11 +56,11 @@ public class Generator : MonoBehaviour
         {
             newEnemySpace += newEnemySpace;
             transform.position = new Vector3(enemySpawn.transform.position.x, enemySpawn.transform.position.y, enemySpawn.transform.position.z + enemySpace);
-            enemySpawnPoint = transform.position;
-            GameObject oldEnemy = enemySpawn;
             GameObject newEnemy = Instantiate(enemySpawn, transform.position, transform.rotation);
+            enemies.Enqueue(enemySpawn);
+            enemySpawnPoint = transform.position;
             enemySpawn = newEnemy;
-            Destroy(oldEnemy);
+            enemies.Dequeue();
         }
     }
 }
