@@ -16,7 +16,7 @@ public class Generator : MonoBehaviour
     private Queue<GameObject> platform;
     private Queue<GameObject> enemies;
     private int newPlatformSpace = 230;
-    private int newEnemySpace = 230;
+    private int newEnemySpace = 50;
     private int platformSpace = 270;
     private int enemySpace = 60;
     
@@ -29,10 +29,6 @@ public class Generator : MonoBehaviour
         platform.Enqueue(Plane[3]);
         platform.Enqueue(Plane[4]);
         enemies.Enqueue(Spawner[0]);
-        enemies.Enqueue(Spawner[1]);
-        enemies.Enqueue(Spawner[2]);
-        enemies.Enqueue(Spawner[3]);
-        enemies.Enqueue(Spawner[4]);
         platformStartPoint = platformShape.transform.position;
         enemySpawnPoint = enemySpawn.transform.position;
 
