@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameState state;
     [SerializeField] private GameObject quitButton;
     public static event Action<GameState> OnStateChange;
+    AudioSource soundSFX;
 
     private void Awake()
     {
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdateState(GameState.Play);
+        soundSFX = transform.parent.GetComponent<AudioSource>();
+        soundSFX.Play();
     }
     public void UpdateState(GameState newState)
     {

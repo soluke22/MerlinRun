@@ -420,6 +420,7 @@ GameObject:
   - component: {fileID: 6245538733123363278}
   - component: {fileID: 4247059009818960413}
   - component: {fileID: 3288953054594988192}
+  - component: {fileID: 8797061229365336987}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -507,6 +508,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8797061229365336987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6909733855482341495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d8b45e85c76c949afb40b14744eaf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Option: 3
 --- !u!1 &6977077976585277302
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +532,7 @@ GameObject:
   - component: {fileID: 4663064033932655691}
   - component: {fileID: 1386328405095093231}
   - component: {fileID: 4943283860463562436}
+  - component: {fileID: 8455912184001503190}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -605,6 +620,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8455912184001503190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6977077976585277302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d8b45e85c76c949afb40b14744eaf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Option: 2
 --- !u!1 &7095800363736337396
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,6 +644,7 @@ GameObject:
   - component: {fileID: 655425963689372728}
   - component: {fileID: 584306773265058985}
   - component: {fileID: 1981755781698464143}
+  - component: {fileID: 3146165101629968821}
   m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
@@ -703,6 +732,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3146165101629968821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7095800363736337396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d8b45e85c76c949afb40b14744eaf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Option: 1
 --- !u!1 &8838429485345504161
 GameObject:
   m_ObjectHideFlags: 0
