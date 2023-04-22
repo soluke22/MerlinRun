@@ -6,49 +6,66 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float forSpeed = 7.5f;
     [SerializeField] float horSpeed = 5.0f;
-    [SerializeField] float laneWidth = 3.3f;
+    float leftLane = -3f;
+    float centerLane = 1;
+    float rightLane = 4f;
+    bool isMoving = false;
+
     Vector3 startPos;
     private CharacterController cc;
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        Debug.Log("The player's starting position is " + cc.transform.position);
     }
 
     // Update is called once per frame
-    void Update()
+void Update()
+{
+    Vector3 forwardMovement = transform.forward * forSpeed * Time.deltaTime;
+    if (Input.GetKeyDown(KeyCode.D))
     {
-        //plan is to move the player between 3 lanes, lanes should be about 3.33 units. an idea is to make it when input is given, the player moves to the middle of the lane in that direction. 
-        // how will we determine what lane the player is and how they will move tot he right lane?
-        // get the x position of the player, if the input is to the right, they move to the right unless at the wall. same for the left
-        // if at the wall, they move to the edge and then move back to the center of their current lane
-
-        Vector3 playerPosition = cc.center;
-        if(Input.touches.Length > 0) //checks if a finger has touched the screen
+        if (cc.transform.position.x < centerLane && !isMoving)
         {
-            if(Input.touches[0].phase == TouchPhase.Began)
-            {
-                startPos = Input.touches[0].position;
-            }
-            if (Input.touches[0].phase == TouchPhase.Moved)
-            {
-                var horTouch = Input.touches[0].position.x - startPos.x; 
-                Vector3 right = transform.right * horTouch * Time.deltaTime;
-                Vector3 forward = transform.forward * forSpeed * Time.deltaTime;
-
-                cc.Move(forward + right);
-            }
+            StartCoroutine(MoveToLaneCoroutine(centerLane, forwardMovement));
         }
-        else //if there's no finger, then moves based on the screen moving
+        else if (cc.transform.position.x == centerLane && !isMoving)
         {
-        float horizontal = Input.GetAxis("Horizontal");
-
-        
-        Vector3 right = transform.right * horizontal * laneWidth * Time.deltaTime;
-        Vector3 forward = transform.forward * forSpeed * Time.deltaTime;
-
-        cc.Move(forward + right);
+            StartCoroutine(MoveToLaneCoroutine(rightLane, forwardMovement));
         }
-	   
     }
+    else if (Input.GetKeyDown(KeyCode.A))
+    {
+        if (cc.transform.position.x == centerLane && !isMoving)
+        {
+            StartCoroutine(MoveToLaneCoroutine(leftLane, forwardMovement));
+        }
+        else if (cc.transform.position.x > centerLane && !isMoving)
+        {
+            StartCoroutine(MoveToLaneCoroutine(centerLane, forwardMovement));
+        }
+    }
+    
+    cc.Move(forwardMovement);
+
 }
+
+IEnumerator MoveToLaneCoroutine(float laneX, Vector3 forwardMovement)
+{
+    isMoving = true;
+    float t = 0f;
+    Vector3 startPos = cc.transform.position;
+    Vector3 endPos = new Vector3(laneX, startPos.y, startPos.z);
+
+    while (t < 2f)
+    {
+        t += Time.deltaTime * horSpeed;
+        cc.Move(forwardMovement + Vector3.Lerp(startPos, endPos, Mathf.Clamp01(t)));
+        yield return null;
+    }
+
+    isMoving = false;
+}
+}
+
