@@ -5,50 +5,124 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float forSpeed = 7.5f;
-    [SerializeField] float horSpeed = 5.0f;
-    [SerializeField] float laneWidth = 3.3f;
-    Vector3 startPos;
+    [SerializeField] float horSpeed = 3.0f;
+    float leftLane = -3f;
+    float centerLane = 1;
+    float rightLane = 4f;
+    float minSwipeDistance = 50f;
+    float maxSwipeAngle = 45f;
+    bool isMoving = false;
+
+    Vector2 startPos;
     private CharacterController cc;
     // Start is called before the first frame update
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        Debug.Log("The player's starting position is " + cc.transform.position);
     }
 
     // Update is called once per frame
-    void Update()
+void Update()
+{
+    Vector3 forwardMovement = transform.forward * forSpeed * Time.deltaTime;
+
+        // Detect touch input
+    if (Input.touches.Length > 0)
     {
-        //plan is to move the player between 3 lanes, lanes should be about 3.33 units. an idea is to make it when input is given, the player moves to the middle of the lane in that direction. 
-        // how will we determine what lane the player is and how they will move tot he right lane?
-        // get the x position of the player, if the input is to the right, they move to the right unless at the wall. same for the left
-        // if at the wall, they move to the edge and then move back to the center of their current lane
+        Touch touch = Input.touches[0];
 
-        Vector3 playerPosition = cc.center;
-        if(Input.touches.Length > 0) //checks if a finger has touched the screen
+        // Detect swipe gesture
+        if (touch.phase == TouchPhase.Began)
         {
-            if(Input.touches[0].phase == TouchPhase.Began)
+            startPos = touch.position;
+        }
+        else if (touch.phase == TouchPhase.Ended)
+        {
+            Vector2 swipeDelta = touch.position - startPos;
+            if (swipeDelta.magnitude > minSwipeDistance)
             {
-                startPos = Input.touches[0].position;
-            }
-            if (Input.touches[0].phase == TouchPhase.Moved)
-            {
-                var horTouch = Input.touches[0].position.x - startPos.x; 
-                Vector3 right = transform.right * horTouch * Time.deltaTime;
-                Vector3 forward = transform.forward * forSpeed * Time.deltaTime;
-
-                cc.Move(forward + right);
+                // Swipe was long enough, now check if it was a horizontal swipe
+                float swipeAngle = Vector2.Angle(swipeDelta, Vector2.right);
+                if (swipeAngle < maxSwipeAngle)
+                {
+                    // Swipe was mostly horizontal, now check if it was left or right
+                    if (swipeDelta.x > 0)
+                    {
+                        // Swipe to the right
+                        if (cc.transform.position.x < centerLane && !isMoving)
+                        {
+                             StartCoroutine(MoveToLaneCoroutine(centerLane));
+                        }
+                        else if (cc.transform.position.x == centerLane && !isMoving)
+                        {
+                                StartCoroutine(MoveToLaneCoroutine(rightLane));
+                        }
+                    }
+                    else
+                    {
+                        if (cc.transform.position.x == centerLane && !isMoving)
+                        {
+                            StartCoroutine(MoveToLaneCoroutine(leftLane));
+                        }
+                        else if (cc.transform.position.x > centerLane && !isMoving)
+                        {
+                            StartCoroutine(MoveToLaneCoroutine(centerLane));
+                        }
+                    }
+                }
             }
         }
-        else //if there's no finger, then moves based on the screen moving
-        {
-        float horizontal = Input.GetAxis("Horizontal");
-
-        
-        Vector3 right = transform.right * horizontal * laneWidth * Time.deltaTime;
-        Vector3 forward = transform.forward * forSpeed * Time.deltaTime;
-
-        cc.Move(forward + right);
-        }
-	   
     }
+    else {
+    if (Input.GetKeyDown(KeyCode.D))
+    {
+        if (cc.transform.position.x < centerLane && !isMoving)
+        {
+            StartCoroutine(MoveToLaneCoroutine(centerLane));
+        }
+        else if (cc.transform.position.x == centerLane && !isMoving)
+        {
+            StartCoroutine(MoveToLaneCoroutine(rightLane));
+        }
+    }
+    else if (Input.GetKeyDown(KeyCode.A))
+    {
+        if (cc.transform.position.x == centerLane && !isMoving)
+        {
+            StartCoroutine(MoveToLaneCoroutine(leftLane));
+        }
+        else if (cc.transform.position.x > centerLane && !isMoving)
+        {
+            StartCoroutine(MoveToLaneCoroutine(centerLane));
+        }
+    }
+    }
+    
+    cc.Move(forwardMovement);
+
 }
+
+IEnumerator MoveToLaneCoroutine(float laneX)
+{
+    Debug.Log("The player is starting at " + cc.transform.position);
+    isMoving = true;
+    float t = 0f;
+    Vector3 startPos = cc.transform.position;
+    Vector3 endPos = new Vector3(laneX, startPos.y, startPos.z);
+
+    while (t < .5f)
+    {
+        Debug.Log("Player is moving to " + endPos);
+        t += Time.deltaTime * horSpeed;
+        Vector3 sidewaysMovement = Vector3.Lerp(startPos, endPos, Mathf.Clamp01(t)) - cc.transform.position;
+        Vector3 forwardMovement = transform.forward * forSpeed * Time.deltaTime;
+        cc.Move(sidewaysMovement + forwardMovement);
+        yield return null;
+    }
+
+    cc.Move(endPos - cc.transform.position);
+    isMoving = false;
+}
+}
+
